@@ -1,0 +1,61 @@
+sourceCompatibility = 1.8
+
+project.ext.mainClassName = "com.gempukku.libgdx.graph.desktop.GraphEditorLauncher"
+project.ext.assetsDir = new File("resources")
+
+import org.gradle.internal.os.OperatingSystem
+
+dependencies {
+    api project(":gdx-vfx-design")
+    api project(":gdx-vfx-assistant")
+
+    implementation "com.github.MarcinSc.gdx-graph:gdx-graph-assistant:$gdxGraphVersion"
+    implementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
+    implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+
+    implementation "com.github.MarcinSc.gdx-assistant:gdx-assistant-desktop:$gdxAssistantVersion"
+    implementation "com.github.MarcinSc.gdx-assistant:gdx-assistant-plugin:$gdxAssistantVersion"
+//    implementation("com.github.MarcinSc.gdx-assistant:gdx-assistant-desktop:$gdxAssistantVersion") {
+//        exclude group: "com.github.MarcinSc.gdx-gemp-lib"
+//    }
+    implementation "com.github.MarcinSc.gdx-assistant:gdx-plugins:$gdxAssistantVersion"
+    implementation "com.kotcrab.vis:vis-ui:$visUiVersion"
+}
+
+task run(dependsOn: classes, type: JavaExec) {
+    mainClass = project.mainClassName
+    classpath = sourceSets.main.runtimeClasspath
+    standardInput = System.in
+    workingDir = project.assetsDir
+    ignoreExitValue = true
+
+    if (OperatingSystem.current() == OperatingSystem.MAC_OS) {
+        // Required to run on macOS
+        jvmArgs += "-XstartOnFirstThread"
+    }
+}
+
+task debug(dependsOn: classes, type: JavaExec) {
+    mainClass = project.mainClassName
+    classpath = sourceSets.main.runtimeClasspath
+    standardInput = System.in
+    workingDir = project.assetsDir
+    ignoreExitValue = true
+    debug = true
+}
+
+task dist(type: Jar) {
+    duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
+    manifest {
+        attributes 'Main-Class': project.mainClassName
+    }
+    dependsOn configurations.runtimeClasspath
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    with jar
+}
+
+dist.dependsOn classes
+
+eclipse.project.name = "gdx-vfx-desktop"

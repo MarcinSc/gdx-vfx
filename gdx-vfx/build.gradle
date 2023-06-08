@@ -1,0 +1,7 @@
+eclipse.project.name = "gdx-vfx"
+
+sourceCompatibility = 1.7
+
+dependencies {
+    implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+}

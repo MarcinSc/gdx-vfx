@@ -1,0 +1,67 @@
+eclipse.project.name = "gdx-graph-assistant"
+
+sourceCompatibility = 1.8
+
+configurations {
+    jarLibs
+}
+
+dependencies {
+    api project(":gdx-vfx")
+
+    // Plugins
+    api project(":gdx-vfx-design")
+
+    implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+    implementation "com.github.MarcinSc.gdx-assistant:gdx-assistant-plugin:$gdxAssistantVersion"
+    implementation "com.kotcrab.vis:vis-ui:$visUiVersion"
+}
+
+jar {
+    // Package classes from this project ("checking they are directories")
+    from {
+        configurations.compileClasspath.filter {
+            it.exists() && it.isDirectory()
+        }.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+    // Package dependencies (marked with jarLibs configuration)
+    from {
+        configurations.jarLibs.filter {
+            it.exists()
+        }.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+    // Package assets
+    from("../gdx-vfx/resources")
+    from("../gdx-vfx-design/resources")
+
+    manifest {
+        attributes(
+                'Gdx-Assistant-Plugin': "com.gempukku.libgdx.vfx.assistant.GdxVfxAssistantPlugin",
+        )
+    }
+}
+
+import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.tools.texturepacker.TexturePacker
+
+tasks.register('texturePacking') {
+    doLast {
+        if (project.ext.has('texturePacker')) {
+            TexturePacker.Settings settings = new TexturePacker.Settings()
+            settings.grid = false
+            settings.maxWidth = 2048
+            settings.maxHeight = 2048
+            settings.filterMin = Texture.TextureFilter.Nearest
+            settings.filterMag = Texture.TextureFilter.Nearest
+
+            for (int i = 0; i < texturePacker.size(); i += 3) {
+                println("Calling TexturePacker: " + texturePacker[i + 2])
+                TexturePacker.process(settings, texturePacker[i + 0], texturePacker[i + 1], texturePacker[i + 2])
+            }
+        }
+    }
+}
