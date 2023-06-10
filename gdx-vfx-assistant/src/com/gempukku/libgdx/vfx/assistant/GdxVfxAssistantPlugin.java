@@ -7,6 +7,8 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.gempukku.gdx.assistant.plugin.*;
 import com.gempukku.gdx.plugins.PluginEnvironment;
 import com.gempukku.gdx.plugins.PluginVersion;
+import com.gempukku.libgdx.graph.ui.UIGdxGraphPluginRegistry;
+import com.gempukku.libgdx.vfx.design.UIVfxGraphPlugin;
 import com.kotcrab.vis.ui.VisUI;
 
 public class GdxVfxAssistantPlugin implements AssistantPlugin {
@@ -34,6 +36,10 @@ public class GdxVfxAssistantPlugin implements AssistantPlugin {
         registerVfxPlugins();
     }
 
+    private static void registerVfxPlugins() {
+        UIGdxGraphPluginRegistry.register(UIVfxGraphPlugin.class);
+    }
+
     @Override
     public void initializePlugin(AssistantApplication assistantApplication) {
         this.assistantApplication = assistantApplication;
@@ -49,9 +55,6 @@ public class GdxVfxAssistantPlugin implements AssistantPlugin {
         MenuManager menuManager = assistantApplication.getMenuManager();
         menuManager.addMainMenu("VFX");
         // Setup menu bar
-    }
-
-    private static void registerVfxPlugins() {
     }
 
     @Override

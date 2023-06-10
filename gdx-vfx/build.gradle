@@ -4,4 +4,6 @@ sourceCompatibility = 1.7
 
 dependencies {
     implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+
+    implementation "com.github.MarcinSc.gdx-graph:gdx-graph-render:$gdxGraphVersion"
 }

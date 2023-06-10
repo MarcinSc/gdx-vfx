@@ -12,8 +12,10 @@ dependencies {
     // Plugins
     api project(":gdx-vfx-design")
 
-    implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+    implementation "com.github.MarcinSc.gdx-graph:gdx-graph-render-design:$gdxGraphVersion"
     implementation "com.github.MarcinSc.gdx-assistant:gdx-assistant-plugin:$gdxAssistantVersion"
+
+    implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
     implementation "com.kotcrab.vis:vis-ui:$visUiVersion"
 }
 

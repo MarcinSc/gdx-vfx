@@ -5,12 +5,12 @@ sourceCompatibility = 1.8
 dependencies {
     api project(":gdx-vfx")
 
-    api "com.github.MarcinSc.gdx-gemp-lib:gdx-gemp-common:$gdxGempLibVersion"
-    api "com.github.MarcinSc.gdx-gemp-lib:gdx-gemp-ui:$gdxGempLibVersion"
+    implementation "com.github.MarcinSc.gdx-graph:gdx-graph-render-design:$gdxGraphVersion"
 
-    implementation "com.kotcrab.vis:vis-ui:$visUiVersion"
     implementation "com.github.MarcinSc.gdx-assistant:gdx-assistant-plugin:$gdxAssistantVersion"
     implementation "com.github.MarcinSc.gdx-assistant:gdx-plugins:$gdxAssistantVersion"
+
+    implementation "com.kotcrab.vis:vis-ui:$visUiVersion"
 }
 
 import com.badlogic.gdx.graphics.Texture

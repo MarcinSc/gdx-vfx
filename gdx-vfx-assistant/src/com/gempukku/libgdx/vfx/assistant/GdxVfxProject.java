@@ -5,7 +5,7 @@ import com.badlogic.gdx.utils.ObjectMap;
 import com.gempukku.gdx.assistant.plugin.*;
 
 public class GdxVfxProject implements AssistantPluginProject {
-        private final ObjectMap<String, JsonValue> mainGraphs = new ObjectMap<>();
+    private final ObjectMap<String, JsonValue> mainGraphs = new ObjectMap<>();
 
     private final AssistantApplication application;
     private final MenuManager menuManager;
@@ -42,6 +42,7 @@ public class GdxVfxProject implements AssistantPluginProject {
 
     @Override
     public void markProjectClean() {
+        dirty = false;
 
     }
 
