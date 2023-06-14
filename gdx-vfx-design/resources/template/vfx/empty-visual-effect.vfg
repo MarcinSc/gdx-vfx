@@ -1,0 +1,15 @@
+{
+  "version": "0.5.0",
+  "type": "VFX",
+  "nodes": [
+    {
+      "id": "vfxPreview",
+      "type": "VfxPreview",
+      "x": 50.0,
+      "y": 50.0
+    }
+  ],
+  "connections": [],
+  "properties": [],
+  "groups": []
+}

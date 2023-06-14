@@ -1,6 +1,6 @@
 sourceCompatibility = 1.8
 
-project.ext.mainClassName = "com.gempukku.libgdx.graph.desktop.GraphEditorLauncher"
+project.ext.mainClassName = "com.gempukku.libgdx.vfx.desktop.VfxEditorLauncher"
 project.ext.assetsDir = new File("resources")
 
 import org.gradle.internal.os.OperatingSystem

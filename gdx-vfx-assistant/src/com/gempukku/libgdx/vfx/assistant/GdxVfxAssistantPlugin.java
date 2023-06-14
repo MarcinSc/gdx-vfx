@@ -9,6 +9,7 @@ import com.gempukku.gdx.plugins.PluginEnvironment;
 import com.gempukku.gdx.plugins.PluginVersion;
 import com.gempukku.libgdx.graph.ui.UIGdxGraphPluginRegistry;
 import com.gempukku.libgdx.vfx.design.UIVfxGraphPlugin;
+import com.gempukku.libgdx.vfx.particle.design.UIVfxParticlePlugin;
 import com.kotcrab.vis.ui.VisUI;
 
 public class GdxVfxAssistantPlugin implements AssistantPlugin {
@@ -38,6 +39,7 @@ public class GdxVfxAssistantPlugin implements AssistantPlugin {
 
     private static void registerVfxPlugins() {
         UIGdxGraphPluginRegistry.register(UIVfxGraphPlugin.class);
+        UIGdxGraphPluginRegistry.register(UIVfxParticlePlugin.class);
     }
 
     @Override

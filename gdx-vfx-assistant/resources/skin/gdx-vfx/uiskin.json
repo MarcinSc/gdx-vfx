@@ -1,2 +1,76 @@
 {
+  "com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable": {
+    "vfx-process-right": {
+      "name": "connector-right",
+      "color": "gdx-graph-white"
+    },
+    "vfx-process-right-required": {
+      "name": "connector-right",
+      "color": "gdx-graph-white"
+    },
+    "vfx-process-right-invalid": {
+      "name": "connector-right",
+      "color": "gdx-graph-white"
+    },
+    "vfx-process-right-required-invalid": {
+      "name": "connector-right",
+      "color": "gdx-graph-white"
+    },
+    "vfx-process-left": {
+      "name": "connector-left",
+      "color": "gdx-graph-white"
+    },
+    "vfx-process-left-required": {
+      "name": "connector-left",
+      "color": "gdx-graph-white"
+    },
+    "vfx-process-left-invalid": {
+      "name": "connector-left",
+      "color": "gdx-graph-white"
+    },
+    "vfx-process-left-required-invalid": {
+      "name": "connector-left",
+      "color": "gdx-graph-white"
+    },
+    "vfx-value-right": {
+      "name": "connector-right",
+      "color": "gdx-graph-white"
+    },
+    "vfx-value-right-required": {
+      "name": "connector-right-required",
+      "color": "gdx-graph-white"
+    },
+    "vfx-value-right-invalid": {
+      "name": "connector-right",
+      "color": "gdx-graph-white"
+    },
+    "vfx-value-right-required-invalid": {
+      "name": "connector-right-required",
+      "color": "gdx-graph-white"
+    },
+    "vfx-value-left": {
+      "name": "connector-left",
+      "color": "gdx-graph-white"
+    },
+    "vfx-value-left-required": {
+      "name": "connector-left-required",
+      "color": "gdx-graph-white"
+    },
+    "vfx-value-left-invalid": {
+      "name": "connector-left",
+      "color": "gdx-graph-white"
+    },
+    "vfx-value-left-required-invalid": {
+      "name": "connector-left-required",
+      "color": "gdx-graph-white"
+    }
+  },
+  "com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle": {
+    "gdx-vfx-io-process": "small",
+    "gdx-vfx-io-value": "small",
+    "gdx-vfx-field-label": "small"
+  },
+  "com.kotcrab.vis.ui.widget.VisTextField$VisTextFieldStyle": {
+    "gdx-vfx-field-property": "small"
+  }
 }

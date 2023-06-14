@@ -66,7 +66,8 @@ com_crashlytics_export_strings.xml
 /gdx-vfx-assistant/build/
 /gdx-vfx-design/build/
 /gdx-vfx-desktop/build/
-/plugins/*/*/build/
+/gdx-vfx-test/build/
+/plugins/*/build/
 
 /nbbuild/
 /android/nbbuild/

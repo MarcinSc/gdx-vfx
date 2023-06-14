@@ -1,0 +1,12 @@
+{
+"name": "VFX Test",
+"assetPath": "gdx-vfx-test/resources",
+"pluginsData": {
+	"gdx-graph": {
+		"graphs": [
+			{ "name": "First test", "graphType": "VFX", "path": "first-test.fxg" }
+		]
+	},
+	"gdx-vfx": {}
+}
+}

@@ -1,0 +1,12 @@
+sourceCompatibility = 1.8
+
+dependencies {
+    api project(":gdx-vfx")
+
+    implementation "com.github.MarcinSc.gdx-gemp-lib:gdx-gemp-common:$gdxGempLibVersion"
+
+    implementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
+    implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+}
+
+eclipse.project.name = "gdx-vfx-test"

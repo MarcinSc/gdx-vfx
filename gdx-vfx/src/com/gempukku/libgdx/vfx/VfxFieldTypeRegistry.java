@@ -7,6 +7,10 @@ public class VfxFieldTypeRegistry {
     private static final ObjectMap<String, VfxFieldType> fieldTypes = new ObjectMap();
     private static final ObjectMap<String, ObjectSet<String>> extendsMap = new ObjectMap<>();
 
+    public static String ext(String fieldType) {
+        return "(" + fieldType + ")";
+    }
+
     public static boolean isOfType(VfxFieldType fieldType, VfxFieldType checkAgainst) {
         if (checkAgainst == fieldType)
             return true;

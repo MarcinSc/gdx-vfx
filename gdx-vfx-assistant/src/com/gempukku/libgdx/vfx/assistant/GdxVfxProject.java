@@ -37,13 +37,12 @@ public class GdxVfxProject implements AssistantPluginProject {
 
     @Override
     public JsonValue saveProject() {
-        return null;
+        return new JsonValue(JsonValue.ValueType.object);
     }
 
     @Override
     public void markProjectClean() {
         dirty = false;
-
     }
 
     @Override

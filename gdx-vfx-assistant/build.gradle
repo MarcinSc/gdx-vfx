@@ -11,6 +11,7 @@ dependencies {
 
     // Plugins
     api project(":gdx-vfx-design")
+    api project(":gdx-vfx-particle-design")
 
     implementation "com.github.MarcinSc.gdx-graph:gdx-graph-render-design:$gdxGraphVersion"
     implementation "com.github.MarcinSc.gdx-assistant:gdx-assistant-plugin:$gdxAssistantVersion"

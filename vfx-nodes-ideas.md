@@ -8,7 +8,7 @@
 - Vector2
 - Vector3
 - SpriteOutput
-- PatchOutput (extends SpriteOutput)
+- PatchOutput
 - Model
 
 ### Rendering:
