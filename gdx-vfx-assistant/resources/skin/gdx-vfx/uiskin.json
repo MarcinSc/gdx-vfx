@@ -5,7 +5,7 @@
       "color": "gdx-graph-white"
     },
     "vfx-process-right-required": {
-      "name": "connector-right",
+      "name": "connector-right-required",
       "color": "gdx-graph-white"
     },
     "vfx-process-right-invalid": {
@@ -13,7 +13,7 @@
       "color": "gdx-graph-white"
     },
     "vfx-process-right-required-invalid": {
-      "name": "connector-right",
+      "name": "connector-right-required",
       "color": "gdx-graph-white"
     },
     "vfx-process-left": {
@@ -21,7 +21,7 @@
       "color": "gdx-graph-white"
     },
     "vfx-process-left-required": {
-      "name": "connector-left",
+      "name": "connector-left-required",
       "color": "gdx-graph-white"
     },
     "vfx-process-left-invalid": {
@@ -29,7 +29,7 @@
       "color": "gdx-graph-white"
     },
     "vfx-process-left-required-invalid": {
-      "name": "connector-left",
+      "name": "connector-left-required",
       "color": "gdx-graph-white"
     },
     "vfx-value-right": {

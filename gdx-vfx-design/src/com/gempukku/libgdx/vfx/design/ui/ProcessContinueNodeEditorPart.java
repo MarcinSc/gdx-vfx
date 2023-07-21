@@ -1,6 +1,7 @@
 package com.gempukku.libgdx.vfx.design.ui;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.JsonValue;
 import com.gempukku.libgdx.common.Supplier;
 import com.gempukku.libgdx.ui.graph.data.GraphNodeInputSide;
@@ -22,7 +23,9 @@ public class ProcessContinueNodeEditorPart extends VisTable implements GraphNode
         this.inputFieldId = inputFieldId;
         this.outputFieldId = outputFieldId;
 
-        add(new VisLabel(label, "gdx-vfx-io-process")).growX();
+        VisLabel processLabel = new VisLabel(label, "gdx-vfx-io-process");
+        processLabel.setAlignment(Align.center);
+        add(processLabel).growX();
     }
 
     @Override

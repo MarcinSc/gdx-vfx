@@ -1,7 +1,5 @@
 package com.gempukku.libgdx.vfx.particle.design.producer;
 
-import com.badlogic.gdx.utils.JsonValue;
-import com.gempukku.libgdx.ui.graph.editor.GraphNodeEditor;
 import com.gempukku.libgdx.vfx.design.ui.InputNodeEditorPart;
 import com.gempukku.libgdx.vfx.design.ui.VfxGraphNodeEditor;
 import com.gempukku.libgdx.vfx.design.ui.VfxMenuNodeEditorProducer;
@@ -13,9 +11,9 @@ public class SpriteRendererNodeEditorProducer extends VfxMenuNodeEditorProducer 
     }
 
     @Override
-    public GraphNodeEditor createNodeEditor(String nodeId, JsonValue data) {
+    protected VfxGraphNodeEditor createNodeEditor(String nodeId) {
         VfxGraphNodeEditor graphNodeEditor = new VfxGraphNodeEditor(nodeConfiguration);
-        graphNodeEditor.addGraphBoxPart(new InputNodeEditorPart("input", "Sprites"));
+        graphNodeEditor.addGraphBoxPart(new InputNodeEditorPart("input", "Particles", true));
         return graphNodeEditor;
     }
 }

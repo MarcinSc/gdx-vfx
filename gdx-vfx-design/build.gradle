@@ -1,9 +1,10 @@
-eclipse.project.name = "gdx-graph-shader-design"
+eclipse.project.name = "gdx-vfx-design"
 
 sourceCompatibility = 1.8
 
 dependencies {
     api project(":gdx-vfx")
+    api project(":gdx-vfx-util")
 
     implementation "com.github.MarcinSc.gdx-graph:gdx-graph-render-design:$gdxGraphVersion"
 

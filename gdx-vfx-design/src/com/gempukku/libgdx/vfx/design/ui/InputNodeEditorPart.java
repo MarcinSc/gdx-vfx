@@ -14,9 +14,15 @@ import com.kotcrab.vis.ui.widget.VisTable;
 
 public class InputNodeEditorPart extends VisTable implements GraphNodeEditorPart {
     private final String fieldId;
+    private final boolean required;
 
     public InputNodeEditorPart(String fieldId, String label) {
+        this(fieldId, label, false);
+    }
+
+    public InputNodeEditorPart(String fieldId, String label, boolean required) {
         this.fieldId = fieldId;
+        this.required = required;
         add(new VisLabel(label, "gdx-vfx-io-value")).growX();
     }
 
@@ -27,14 +33,16 @@ public class InputNodeEditorPart extends VisTable implements GraphNodeEditorPart
 
     @Override
     public GraphNodeEditorInput getInputConnector() {
+        String drawable = "vfx-value-left" + (required ? "-required" : "");
+
         return new DefaultGraphNodeEditorInput(
                 GraphNodeInputSide.Left, new Supplier<Float>() {
             @Override
             public Float get() {
-                return getHeight()/2;
+                return getHeight() / 2;
             }
-        }, fieldId, VisUI.getSkin().getDrawable("vfx-value-left-required"),
-                VisUI.getSkin().getDrawable("vfx-value-left-required-invalid"));
+        }, fieldId, VisUI.getSkin().getDrawable(drawable),
+                VisUI.getSkin().getDrawable(drawable + "-invalid"));
     }
 
     @Override

@@ -8,12 +8,12 @@ import com.gempukku.libgdx.graph.data.MapWritablePropertyContainer;
 import com.gempukku.libgdx.graph.util.sprite.SpriteReference;
 import com.gempukku.libgdx.graph.util.storage.MultiPartMesh;
 import com.gempukku.libgdx.vfx.VfxEffectConfiguration;
-import com.gempukku.libgdx.vfx.node.VfxOutputNode;
 import com.gempukku.libgdx.vfx.node.VfxRuntimeNode;
 import com.gempukku.libgdx.vfx.particle.SpriteParticleModel;
 import com.gempukku.libgdx.vfx.particle.SpriteParticlesConfiguration;
 import com.gempukku.libgdx.vfx.particle.VfxParticle;
 import com.gempukku.libgdx.vfx.particle.config.SpriteParticleRendererNodeConfiguration;
+import com.gempukku.libgdx.vfx.particle.node.VfxOutputNode;
 import com.gempukku.libgdx.vfx.producer.AbstractVfxNodeProducer;
 
 public class SpriteParticleRendererNodeProducer extends AbstractVfxNodeProducer {

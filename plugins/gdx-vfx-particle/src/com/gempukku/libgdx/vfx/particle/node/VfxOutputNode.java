@@ -1,4 +1,6 @@
-package com.gempukku.libgdx.vfx.node;
+package com.gempukku.libgdx.vfx.particle.node;
+
+import com.gempukku.libgdx.vfx.node.VfxRuntimeNode;
 
 public interface VfxOutputNode<OutputType, Identifier> extends VfxRuntimeNode {
     Identifier create(String fieldId, OutputType output);

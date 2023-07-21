@@ -5,10 +5,11 @@ import com.badlogic.gdx.utils.Pool;
 import com.gempukku.libgdx.graph.data.MapWritablePropertyContainer;
 
 public class VfxParticle implements Pool.Poolable {
-    private MapWritablePropertyContainer propertyContainer = new MapWritablePropertyContainer();
-    private Vector3 position = new Vector3();
+    private final MapWritablePropertyContainer propertyContainer = new MapWritablePropertyContainer();
+    private final Vector3 position = new Vector3();
     private float creationTime;
     private float deathTime;
+    private Object renderedIdentifier;
 
     public MapWritablePropertyContainer getPropertyContainer() {
         return propertyContainer;
@@ -34,11 +35,20 @@ public class VfxParticle implements Pool.Poolable {
         this.deathTime = deathTime;
     }
 
+    public Object getRenderedIdentifier() {
+        return renderedIdentifier;
+    }
+
+    public void setRenderedIdentifier(Object renderedIdentifier) {
+        this.renderedIdentifier = renderedIdentifier;
+    }
+
     @Override
     public void reset() {
         propertyContainer.clear();
         position.setZero();
         creationTime = 0f;
         deathTime = 0f;
+        renderedIdentifier = null;
     }
 }

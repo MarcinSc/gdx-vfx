@@ -31,6 +31,7 @@ public class VfxTestGame extends Game {
     @Override
     public void create() {
         screens = new Array<>();
+        screens.add(new SimpleEmitterScreen());
 
         loadedIndex = screens.size - 1;
 

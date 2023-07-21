@@ -1,6 +1,7 @@
 package com.gempukku.libgdx.vfx.design.ui;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.JsonValue;
 import com.gempukku.libgdx.common.Supplier;
 import com.gempukku.libgdx.ui.graph.data.GraphNodeOutputSide;
@@ -18,7 +19,9 @@ public class ProcessStartNodeEditorPart extends VisTable implements GraphNodeEdi
     public ProcessStartNodeEditorPart(String fieldId, String label) {
         this.fieldId = fieldId;
 
-        add(new VisLabel(label, "gdx-vfx-io-process")).growX();
+        VisLabel processLabel = new VisLabel(label, "gdx-vfx-io-process");
+        processLabel.setAlignment(Align.right);
+        add(processLabel).growX();
     }
 
     @Override

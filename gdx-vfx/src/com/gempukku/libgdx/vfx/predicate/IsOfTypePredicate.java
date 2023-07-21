@@ -1,18 +1,17 @@
 package com.gempukku.libgdx.vfx.predicate;
 
 import com.gempukku.libgdx.common.Predicate;
-import com.gempukku.libgdx.vfx.VfxFieldType;
 import com.gempukku.libgdx.vfx.VfxFieldTypeRegistry;
 
 public class IsOfTypePredicate implements Predicate<String> {
-    private final VfxFieldType type;
+    private final String type;
 
     public IsOfTypePredicate(String type) {
-        this.type = VfxFieldTypeRegistry.findVFXFieldType(type);
+        this.type = type;
     }
 
     @Override
     public boolean test(String s) {
-        return VfxFieldTypeRegistry.isOfType(VfxFieldTypeRegistry.findVFXFieldType(s), type);
+        return VfxFieldTypeRegistry.isOfType(VfxFieldTypeRegistry.findVFXFieldType(s), VfxFieldTypeRegistry.findVFXFieldType(type));
     }
 }

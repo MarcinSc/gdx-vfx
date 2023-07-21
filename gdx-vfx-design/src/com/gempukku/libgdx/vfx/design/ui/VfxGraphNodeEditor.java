@@ -3,6 +3,9 @@ package com.gempukku.libgdx.vfx.design.ui;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.JsonValue;
 import com.gempukku.libgdx.common.Supplier;
+import com.gempukku.libgdx.graph.data.GraphWithProperties;
+import com.gempukku.libgdx.graph.ui.graph.GraphChangedAware;
+import com.gempukku.libgdx.ui.graph.GraphChangedEvent;
 import com.gempukku.libgdx.ui.graph.data.NodeConfiguration;
 import com.gempukku.libgdx.ui.graph.editor.*;
 import com.gempukku.libgdx.ui.graph.editor.part.GraphNodeEditorPart;
@@ -13,7 +16,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class VfxGraphNodeEditor implements GraphNodeEditor {
+public class VfxGraphNodeEditor implements GraphNodeEditor, GraphChangedAware {
     private NodeConfiguration configuration;
     private VisTable table;
     private List<GraphNodeEditorPart> editorParts = new LinkedList<>();
@@ -91,5 +94,13 @@ public class VfxGraphNodeEditor implements GraphNodeEditor {
         if (result.isEmpty())
             return null;
         return result;
+    }
+
+    @Override
+    public void graphChanged(GraphChangedEvent event, GraphWithProperties graph) {
+        for (GraphNodeEditorPart editorPart : editorParts) {
+            if (editorPart instanceof GraphChangedAware)
+                ((GraphChangedAware) editorPart).graphChanged(event, graph);
+        }
     }
 }

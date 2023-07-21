@@ -1,8 +1,11 @@
 package com.gempukku.libgdx.vfx.design;
 
+import com.badlogic.gdx.utils.ObjectMap;
+import com.gempukku.libgdx.common.Producer;
 import com.gempukku.libgdx.graph.ui.graph.MenuGraphNodeEditorProducer;
 import com.gempukku.libgdx.graph.ui.graph.UIGraphConfiguration;
 import com.gempukku.libgdx.graph.ui.graph.property.PropertyEditorDefinition;
+import com.gempukku.libgdx.vfx.VfxConfiguration;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -11,6 +14,8 @@ import java.util.TreeMap;
 public class UIVfxGraphConfiguration implements UIGraphConfiguration {
     private static Map<String, MenuGraphNodeEditorProducer> graphBoxProducers = new TreeMap<>();
     private static Map<String, PropertyEditorDefinition> propertyProducers = new LinkedHashMap<>();
+    private static ObjectMap<Class<? extends VfxConfiguration>,
+            Producer<? extends VfxConfiguration>> previewConfigurationBuilders = new ObjectMap<>();
 
     public static void register(MenuGraphNodeEditorProducer producer) {
         String menuLocation = producer.getMenuLocation();
@@ -32,5 +37,13 @@ public class UIVfxGraphConfiguration implements UIGraphConfiguration {
     @Override
     public Map<String, ? extends PropertyEditorDefinition> getPropertyEditorDefinitions() {
         return propertyProducers;
+    }
+
+    public static <T extends VfxConfiguration> void registerPreviewConfigurationBuilder(Class<T> clazz, Producer<T> configurationProducer) {
+        previewConfigurationBuilders.put(clazz, configurationProducer);
+    }
+
+    public static ObjectMap<Class<? extends VfxConfiguration>, Producer<? extends VfxConfiguration>> getPreviewConfigurationBuilders() {
+        return previewConfigurationBuilders;
     }
 }

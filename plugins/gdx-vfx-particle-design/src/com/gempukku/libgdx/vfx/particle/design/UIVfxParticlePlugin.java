@@ -5,6 +5,7 @@ import com.gempukku.libgdx.graph.plugin.RuntimePluginRegistry;
 import com.gempukku.libgdx.graph.ui.UIGdxGraphPlugin;
 import com.gempukku.libgdx.vfx.design.UIVfxGraphConfiguration;
 import com.gempukku.libgdx.vfx.particle.VfxParticlePlugin;
+import com.gempukku.libgdx.vfx.particle.design.producer.ParticleEmitterNodeEditorProducer;
 import com.gempukku.libgdx.vfx.particle.design.producer.SpriteRendererNodeEditorProducer;
 
 public class UIVfxParticlePlugin implements UIGdxGraphPlugin {
@@ -12,6 +13,7 @@ public class UIVfxParticlePlugin implements UIGdxGraphPlugin {
     public void initialize(FileHandleResolver assetResolver) {
         // Sprites
         UIVfxGraphConfiguration.register(new SpriteRendererNodeEditorProducer());
+        UIVfxGraphConfiguration.register(new ParticleEmitterNodeEditorProducer());
 
         // Register runtime plugin
         RuntimePluginRegistry.register(VfxParticlePlugin.class);

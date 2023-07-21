@@ -1,7 +1,5 @@
 package com.gempukku.libgdx.vfx.design.common.config;
 
-import com.badlogic.gdx.utils.JsonValue;
-import com.gempukku.libgdx.ui.graph.editor.GraphNodeEditor;
 import com.gempukku.libgdx.vfx.common.config.LatchNodeConfiguration;
 import com.gempukku.libgdx.vfx.design.ui.OutputNodeEditorPart;
 import com.gempukku.libgdx.vfx.design.ui.ProcessContinueNodeEditorPart;
@@ -14,11 +12,11 @@ public class LatchNodeEditorProducer extends VfxMenuNodeEditorProducer {
     }
 
     @Override
-    public GraphNodeEditor createNodeEditor(String nodeId, JsonValue data) {
+    protected VfxGraphNodeEditor createNodeEditor(String nodeId) {
         VfxGraphNodeEditor graphNodeEditor = new VfxGraphNodeEditor(nodeConfiguration);
         graphNodeEditor.addGraphBoxPart(new ProcessContinueNodeEditorPart("set", "setOutput", "Set"));
         graphNodeEditor.addGraphBoxPart(new ProcessContinueNodeEditorPart("reset", "resetOutput", "Reset"));
-        graphNodeEditor.addGraphBoxPart(new OutputNodeEditorPart("value", "Value"));
+        graphNodeEditor.addGraphBoxPart(new OutputNodeEditorPart("value", "Value", true));
         return graphNodeEditor;
     }
 }

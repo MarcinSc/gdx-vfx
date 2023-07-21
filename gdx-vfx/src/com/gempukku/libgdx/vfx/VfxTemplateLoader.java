@@ -8,6 +8,15 @@ import com.gempukku.libgdx.graph.data.GraphWithProperties;
 import com.gempukku.libgdx.graph.loader.GraphLoader;
 
 public class VfxTemplateLoader {
+    public static VfxTemplate loadVfxTemplate(GraphWithProperties graph) {
+        VfxGraphType graphType = GraphTypeRegistry.findGraphType(VfxGraphType.TYPE, VfxGraphType.class);
+
+        if (graphType.validateGraph(graph).hasErrors())
+            throw new GdxRuntimeException("Unable to load graph - not valid, open it in graph designer and fix it");
+
+        return graphType.buildVfxTemplate(graph, false);
+    }
+
     public static VfxTemplate loadVfxTemplate(FileHandle fileHandle) {
         VfxGraphType graphType = GraphTypeRegistry.findGraphType(VfxGraphType.TYPE, VfxGraphType.class);
         GraphWithProperties graph = GraphLoader.loadGraph(graphType.getType(), new JsonReader().parse(fileHandle));

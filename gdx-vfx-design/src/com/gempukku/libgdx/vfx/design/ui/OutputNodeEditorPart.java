@@ -1,6 +1,7 @@
 package com.gempukku.libgdx.vfx.design.ui;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.JsonValue;
 import com.gempukku.libgdx.common.Supplier;
 import com.gempukku.libgdx.ui.graph.data.GraphNodeOutputSide;
@@ -14,22 +15,32 @@ import com.kotcrab.vis.ui.widget.VisTable;
 
 public class OutputNodeEditorPart extends VisTable implements GraphNodeEditorPart {
     private final String fieldId;
+    private final boolean required;
 
     public OutputNodeEditorPart(String fieldId, String label) {
+        this(fieldId, label, false);
+    }
+
+    public OutputNodeEditorPart(String fieldId, String label, boolean required) {
         this.fieldId = fieldId;
-        add(new VisLabel(label, "gdx-vfx-io-value")).growX();
+        this.required = required;
+        VisLabel outputLabel = new VisLabel(label, "gdx-vfx-io-value");
+        outputLabel.setAlignment(Align.right);
+        add(outputLabel).growX();
     }
 
     @Override
     public GraphNodeEditorOutput getOutputConnector() {
+        String drawable = "vfx-value-right" + (required ? "-required" : "");
+
         return new DefaultGraphNodeEditorOutput(
                 GraphNodeOutputSide.Right, new Supplier<Float>() {
             @Override
             public Float get() {
-                return getHeight()/2;
+                return getHeight() / 2;
             }
-        }, fieldId, VisUI.getSkin().getDrawable("vfx-value-right"),
-                VisUI.getSkin().getDrawable("vfx-value-right-invalid"));
+        }, fieldId, VisUI.getSkin().getDrawable(drawable),
+                VisUI.getSkin().getDrawable(drawable + "-invalid"));
     }
 
     @Override

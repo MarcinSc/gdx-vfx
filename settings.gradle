@@ -1,4 +1,4 @@
-include 'gdx-vfx', 'gdx-vfx-assistant', 'gdx-vfx-design', 'gdx-vfx-desktop', 'gdx-vfx-test'
+include 'gdx-vfx', 'gdx-vfx-util', 'gdx-vfx-assistant', 'gdx-vfx-design', 'gdx-vfx-desktop', 'gdx-vfx-test'
 
 new File(rootDir, "plugins").listFiles().each { folder ->
     if (folder.directory && new File(folder, 'build.gradle').exists()) {

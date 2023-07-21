@@ -4,7 +4,7 @@
 "pluginsData": {
 	"gdx-graph": {
 		"graphs": [
-			{ "name": "First test", "graphType": "VFX", "path": "first-test.fxg" }
+			{ "name": "First test", "graphType": "VFX", "path": "vfx/first-test.fxg" }
 		]
 	},
 	"gdx-vfx": {}

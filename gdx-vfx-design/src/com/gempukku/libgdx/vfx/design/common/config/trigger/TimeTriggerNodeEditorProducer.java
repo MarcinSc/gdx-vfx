@@ -1,7 +1,5 @@
 package com.gempukku.libgdx.vfx.design.common.config.trigger;
 
-import com.badlogic.gdx.utils.JsonValue;
-import com.gempukku.libgdx.ui.graph.editor.GraphNodeEditor;
 import com.gempukku.libgdx.ui.graph.editor.part.FloatEditorPart;
 import com.gempukku.libgdx.vfx.common.config.trigger.TimeTriggerNodeConfiguration;
 import com.gempukku.libgdx.vfx.design.ui.ProcessStartNodeEditorPart;
@@ -15,7 +13,7 @@ public class TimeTriggerNodeEditorProducer extends VfxMenuNodeEditorProducer {
     }
 
     @Override
-    public GraphNodeEditor createNodeEditor(String nodeId, JsonValue data) {
+    protected VfxGraphNodeEditor createNodeEditor(String nodeId) {
         VfxGraphNodeEditor graphNodeEditor = new VfxGraphNodeEditor(nodeConfiguration);
         graphNodeEditor.addGraphBoxPart(new ProcessStartNodeEditorPart("trigger", "Process"));
         graphNodeEditor.addGraphBoxPart(new FloatEditorPart("Time: ", "time", 1f,

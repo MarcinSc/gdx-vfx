@@ -6,7 +6,6 @@ public interface VfxFieldType {
     public static final String Vector2 = "Vector2";
     public static final String Vector3 = "Vector3";
     public static final String Process = "Process";
-    public static final String SpriteOutput = "SpriteOutput";
 
     String getName();
 }
