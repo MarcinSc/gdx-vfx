@@ -1,7 +1,9 @@
 package com.gempukku.libgdx.vfx.design.ui;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonValue;
+import com.gempukku.libgdx.common.Consumer;
 import com.gempukku.libgdx.common.Supplier;
 import com.gempukku.libgdx.graph.data.GraphWithProperties;
 import com.gempukku.libgdx.graph.ui.graph.GraphChangedAware;
@@ -22,10 +24,15 @@ public class VfxGraphNodeEditor implements GraphNodeEditor, GraphChangedAware {
     private List<GraphNodeEditorPart> editorParts = new LinkedList<>();
     private Map<String, GraphNodeEditorInput> inputConnectors = new HashMap<>();
     private Map<String, GraphNodeEditorOutput> outputConnectors = new HashMap<>();
+    private Array<Consumer<JsonValue>> jsonProducingConsumers = new Array<>();
 
     public VfxGraphNodeEditor(NodeConfiguration configuration) {
         this.configuration = configuration;
         table = new VisTable();
+    }
+
+    public void addJsonProducingConsumer(Consumer<JsonValue> consumer) {
+        jsonProducingConsumers.add(consumer);
     }
 
     @Override
@@ -90,6 +97,10 @@ public class VfxGraphNodeEditor implements GraphNodeEditor, GraphChangedAware {
 
         for (GraphNodeEditorPart graphBoxPart : editorParts)
             graphBoxPart.serializePart(result);
+
+        for (Consumer<JsonValue> jsonProducingConsumer : jsonProducingConsumers) {
+            jsonProducingConsumer.consume(result);
+        }
 
         if (result.isEmpty())
             return null;

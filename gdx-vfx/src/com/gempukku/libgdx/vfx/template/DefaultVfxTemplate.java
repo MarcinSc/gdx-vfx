@@ -31,7 +31,7 @@ public class DefaultVfxTemplate implements VfxTemplate {
             GraphNode node = graph.getNodeById(vfxNode.key);
 
             VfxRuntimeNodeProducer producer = VfxGraphConfiguration.findProducer(node.getType());
-            if (producer == null)
+            if (producer == null && !canIgnoreMissing(node))
                 throw new GdxRuntimeException("Unable to find Vfx node producer for type: " + node.getType());
 
             NodeConfiguration nodeConfiguration = producer.getConfiguration(node.getData());
@@ -42,6 +42,10 @@ public class DefaultVfxTemplate implements VfxTemplate {
 
             vfxNode.value.initializeRelationships(inputNodes, outputNodes);
         }
+    }
+
+    private boolean canIgnoreMissing(GraphNode node) {
+        return node.getData() != null && node.getData().getBoolean("ignoreMissing", false);
     }
 
     private ObjectMap<String, Array<VfxRuntimeNode.RelationshipConnection>> createOutputRelationships(ObjectMap<String, VfxRuntimeNode> nodes, ObjectMap.Entry<String, VfxRuntimeNode> vfxNode, NodeConfiguration nodeConfiguration) {
@@ -104,7 +108,7 @@ public class DefaultVfxTemplate implements VfxTemplate {
             for (GraphNodeOutput graphNodeOutput : new ObjectMap.Values<>(nodeConfiguration.getNodeOutputs())) {
                 String fieldId = graphNodeOutput.getFieldId();
                 Array<GraphConnection> outputConnections = findOutputConnections(nodeId, fieldId);
-                if (outputConnections.size>0) {
+                if (outputConnections.size > 0) {
                     String fieldType = graphNodeOutput.determineFieldType(inputTypes);
                     outputTypes.put(fieldId, fieldType);
                 }

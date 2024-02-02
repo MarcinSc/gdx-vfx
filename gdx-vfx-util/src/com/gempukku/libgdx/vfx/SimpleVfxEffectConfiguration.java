@@ -9,14 +9,14 @@ public class SimpleVfxEffectConfiguration implements VfxEffectConfiguration, Dis
     private final TimeProvider renderTimeProvider;
     private final TimeKeeper effectTimeKeeper;
 
-    private final ObjectMap<Class<?>, Object> configs = new ObjectMap<>();
+    private final ObjectMap<Class<?>, VfxConfiguration> configs = new ObjectMap<>();
 
     public SimpleVfxEffectConfiguration(TimeProvider renderTimeProvider, TimeKeeper effectTimeKeeper) {
         this.renderTimeProvider = renderTimeProvider;
         this.effectTimeKeeper = effectTimeKeeper;
     }
 
-    public <T extends VfxConfiguration> void setConfig(Class<T> clazz, T config) {
+    public <Config extends VfxConfiguration> void setConfig(Class<Config> clazz, Config config) {
         configs.put(clazz, config);
     }
 
@@ -41,7 +41,7 @@ public class SimpleVfxEffectConfiguration implements VfxEffectConfiguration, Dis
 
     @Override
     public void dispose() {
-        for (Object config : configs.values()) {
+        for (VfxConfiguration config : configs.values()) {
             if (config instanceof Disposable) {
                 ((Disposable) config).dispose();
             }

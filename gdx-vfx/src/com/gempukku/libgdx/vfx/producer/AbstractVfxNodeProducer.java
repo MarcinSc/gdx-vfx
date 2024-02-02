@@ -27,7 +27,7 @@ public abstract class AbstractVfxNodeProducer implements VfxRuntimeNodeProducer 
     @Override
     public ObjectMap<String, String> getOutputTypes(JsonValue data, ObjectMap<String, Array<String>> inputTypes) {
         ObjectMap<String, String> result = new ObjectMap<>();
-        for (ObjectMap.Entry<String, GraphNodeOutput> nodeOutput : nodeConfiguration.getNodeOutputs()) {
+        for (ObjectMap.Entry<String, ? extends GraphNodeOutput> nodeOutput : nodeConfiguration.getNodeOutputs()) {
             String outputType = nodeOutput.value.determineFieldType(inputTypes);
             result.put(nodeOutput.key, outputType);
         }

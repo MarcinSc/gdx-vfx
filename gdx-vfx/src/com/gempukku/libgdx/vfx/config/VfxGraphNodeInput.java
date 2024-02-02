@@ -1,10 +1,10 @@
 package com.gempukku.libgdx.vfx.config;
 
 import com.gempukku.libgdx.common.Predicate;
-import com.gempukku.libgdx.ui.graph.data.GraphNodeInput;
 import com.gempukku.libgdx.ui.graph.data.GraphNodeInputSide;
+import com.gempukku.libgdx.ui.graph.data.impl.NamedGraphNodeInput;
 
-public class VfxGraphNodeInput implements GraphNodeInput {
+public class VfxGraphNodeInput implements NamedGraphNodeInput {
     private final String id;
     private final String name;
     private final boolean required;

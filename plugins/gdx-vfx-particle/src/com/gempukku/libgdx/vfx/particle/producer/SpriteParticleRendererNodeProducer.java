@@ -33,8 +33,8 @@ public class SpriteParticleRendererNodeProducer extends AbstractVfxNodeProducer 
         public SpriteParticleRendererNode(JsonValue data, VfxEffectConfiguration configuration) {
             this.configuration = configuration;
             String tag = data.getString("graphShaderTag");
-            String spriteUVModel = data.getString("spriteUVModel");
-            String previewSpriteUVModel = data.getString("previewSpriteUVModel");
+            String spriteUVModel = data.getString("spriteUVModel", null);
+            String previewSpriteUVModel = data.getString("previewSpriteUVModel", null);
 
             SpriteParticlesConfiguration spriteParticlesConfig = configuration.getConfig(SpriteParticlesConfiguration.class);
             SpriteParticleModel spriteModel = spriteParticlesConfig.getSpriteModel(spriteUVModel, previewSpriteUVModel);

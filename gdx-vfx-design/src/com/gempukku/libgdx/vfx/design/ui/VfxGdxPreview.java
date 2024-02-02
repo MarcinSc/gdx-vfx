@@ -1,42 +1,32 @@
 package com.gempukku.libgdx.vfx.design.ui;
 
-import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.gempukku.libgdx.common.Producer;
 import com.gempukku.libgdx.graph.data.GraphWithProperties;
-import com.gempukku.libgdx.graph.data.MapWritablePropertyContainer;
-import com.gempukku.libgdx.graph.pipeline.PipelineLoader;
-import com.gempukku.libgdx.graph.pipeline.PipelineRenderer;
-import com.gempukku.libgdx.graph.pipeline.RenderToTextureOutput;
-import com.gempukku.libgdx.graph.pipeline.RendererConfiguration;
-import com.gempukku.libgdx.graph.pipeline.impl.SimplePipelineRendererConfiguration;
-import com.gempukku.libgdx.graph.ui.AssetResolver;
-import com.gempukku.libgdx.graph.ui.pipeline.UIRenderPipelineConfiguration;
 import com.gempukku.libgdx.graph.util.DefaultTimeKeeper;
 import com.gempukku.libgdx.ui.DisposableTable;
 import com.gempukku.libgdx.vfx.*;
 import com.gempukku.libgdx.vfx.design.UIVfxGraphConfiguration;
 
-public class VfxPreview extends DisposableTable {
+public class VfxGdxPreview extends DisposableTable {
     private final DefaultTimeKeeper timeKeeper;
     private final PerspectiveCamera camera;
-    private FileHandle pipelineFile;
     private VfxTemplate vfxTemplate;
     private VfxInstance vfxInstance;
-    private Texture texture;
+    private FrameBuffer frameBuffer;
 
-    private SimplePipelineRendererConfiguration configuration;
     private SimpleVfxEffectConfiguration vfxEffectConfiguration;
-    private PipelineRenderer pipelineRenderer;
 
     private boolean initialized = false;
 
-    public VfxPreview() {
+    public VfxGdxPreview() {
         timeKeeper = new DefaultTimeKeeper();
 
         camera = new PerspectiveCamera();
@@ -46,10 +36,6 @@ public class VfxPreview extends DisposableTable {
         camera.up.set(0f, 1f, 0f);
         camera.lookAt(0, 0f, 0f);
         camera.update();
-    }
-
-    public void setPipelineFile(FileHandle pipelineFile) {
-        this.pipelineFile = pipelineFile;
     }
 
     @Override
@@ -71,7 +57,7 @@ public class VfxPreview extends DisposableTable {
 
         timeKeeper.updateTime(delta);
         if (vfxInstance != null) {
-            boolean finished = vfxInstance.update(delta);
+            boolean finished = vfxInstance.process();
             if (finished) {
                 vfxInstance.dispose();
                 vfxInstance = vfxTemplate.createEffect(vfxEffectConfiguration);
@@ -82,10 +68,10 @@ public class VfxPreview extends DisposableTable {
         int height = MathUtils.round(getHeight());
         if (initialized && width > 0 && height > 0) {
             if (hasToRecreateBuffer(width, height)) {
-                if (texture != null) {
-                    texture.dispose();
+                if (frameBuffer != null) {
+                    frameBuffer.dispose();
                 }
-                texture = new Texture(width, height, Pixmap.Format.RGBA8888);
+                frameBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, width, height, true);
             }
 
             camera.viewportWidth = width;
@@ -98,18 +84,24 @@ public class VfxPreview extends DisposableTable {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        if (initialized && texture != null && vfxInstance != null) {
-            batch.draw(texture, getX(), getY() + getHeight(), getWidth(), -getHeight());
+        if (initialized && frameBuffer != null && vfxInstance != null) {
+            batch.draw(frameBuffer.getColorBufferTexture(), getX(), getY() + getHeight(), getWidth(), -getHeight());
         }
         super.draw(batch, parentAlpha);
     }
 
     private void drawToOffscreen() {
-        pipelineRenderer.render(new RenderToTextureOutput(texture));
+        if (frameBuffer != null) {
+            System.out.println("Drawing to offscreen");
+            frameBuffer.begin();
+            Gdx.gl.glClearColor(0, 0, 0, 1);
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+            frameBuffer.end();
+        }
     }
 
     private boolean hasToRecreateBuffer(int width, int height) {
-        return texture == null || texture.getWidth() != width || texture.getHeight() != height;
+        return frameBuffer == null || frameBuffer.getWidth() != width || frameBuffer.getHeight() != height;
     }
 
     public void graphChanged(GraphWithProperties graph) {
@@ -122,27 +114,16 @@ public class VfxPreview extends DisposableTable {
     }
 
     private void updateRenderingWidgetIfNeeded() {
-        if (initialized && pipelineFile != null && vfxTemplate != null) {
+        if (initialized && vfxTemplate != null) {
             destroyEverything();
-
-            // Create configuration
-            configuration = new SimplePipelineRendererConfiguration(timeKeeper, AssetResolver.instance, new MapWritablePropertyContainer());
-            for (ObjectMap.Entry<Class<? extends RendererConfiguration>, Producer<? extends RendererConfiguration>> configurationProducer : UIRenderPipelineConfiguration.getPreviewConfigurationBuilders()) {
-                Class<RendererConfiguration> configurationClass = (Class<RendererConfiguration>) configurationProducer.key;
-                RendererConfiguration rendererConfiguration = configurationProducer.value.create();
-                configuration.setConfig(configurationClass, rendererConfiguration);
-            }
 
             // Create vfxConfiguration
             vfxEffectConfiguration = new SimpleVfxEffectConfiguration(timeKeeper, new DefaultTimeKeeper());
-            for (ObjectMap.Entry<Class<? extends VfxConfiguration>, Producer<? extends VfxConfiguration>> configurationProducer : UIVfxGraphConfiguration.getPreviewConfigurationBuilders()) {
+            for (ObjectMap.Entry<Class<? extends VfxConfiguration>, Producer<? extends VfxConfiguration>> configurationProducer : UIVfxGraphConfiguration.getPreviewGdxConfigurationBuilders()) {
                 Class<VfxConfiguration> configurationClass = (Class<VfxConfiguration>) configurationProducer.key;
                 VfxConfiguration vfxConfiguration = configurationProducer.value.create();
                 vfxEffectConfiguration.setConfig(configurationClass, vfxConfiguration);
             }
-
-            // Load pipeline
-            pipelineRenderer = PipelineLoader.loadPipelineRenderer(pipelineFile, configuration);
 
             vfxInstance = vfxTemplate.createEffect(vfxEffectConfiguration);
         } else {
@@ -153,15 +134,14 @@ public class VfxPreview extends DisposableTable {
 
     private void destroyEverything() {
         destroyConfiguration();
-        destroyPipeline();
-        destroyTexture();
+        destroyFrameBuffer();
         destroyVfxInstance();
     }
 
-    private void destroyTexture() {
-        if (texture != null) {
-            texture.dispose();
-            texture = null;
+    private void destroyFrameBuffer() {
+        if (frameBuffer != null) {
+            frameBuffer.dispose();
+            frameBuffer = null;
         }
     }
 
@@ -172,21 +152,10 @@ public class VfxPreview extends DisposableTable {
         }
     }
 
-    private void destroyPipeline() {
-        if (pipelineRenderer != null) {
-            pipelineRenderer.dispose();
-            pipelineRenderer = null;
-        }
-    }
-
     private void destroyConfiguration() {
         if (vfxEffectConfiguration != null) {
             vfxEffectConfiguration.dispose();
             vfxEffectConfiguration = null;
-        }
-        if (configuration != null) {
-            configuration.dispose();
-            configuration = null;
         }
     }
 }

@@ -27,8 +27,10 @@ public class VfxGraphType implements GraphType {
                 };
 
         DAGValidator dagValidator = new DAGValidator();
+        RequiredValidator requiredValidator = new RequiredValidator(nodeConfigurationResolver);
+        requiredValidator.setIgnoreMissingProducers(true);
         SumGraphValidator sumValidator = new SumGraphValidator(
-                new RequiredValidator(nodeConfigurationResolver),
+                requiredValidator,
                 new MultipleConnectionsValidator(nodeConfigurationResolver),
                 new FieldTypeValidator(nodeConfigurationResolver));
         graphValidator = new SerialGraphValidator(dagValidator, sumValidator);

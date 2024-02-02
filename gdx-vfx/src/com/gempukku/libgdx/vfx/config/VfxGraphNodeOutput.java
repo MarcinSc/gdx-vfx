@@ -3,10 +3,10 @@ package com.gempukku.libgdx.vfx.config;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.gempukku.libgdx.common.Function;
-import com.gempukku.libgdx.ui.graph.data.GraphNodeOutput;
 import com.gempukku.libgdx.ui.graph.data.GraphNodeOutputSide;
+import com.gempukku.libgdx.ui.graph.data.impl.NamedGraphNodeOutput;
 
-public class VfxGraphNodeOutput implements GraphNodeOutput {
+public class VfxGraphNodeOutput implements NamedGraphNodeOutput {
     private final String id;
     private final String name;
     private final boolean required;
